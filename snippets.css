@@ -1,0 +1,255 @@
+/** 
+
+1. Menu Bar Text/Icon
+2. Mobile Columns 
+3. adjust Divi Menu module breakpoint
+4. Zoom Animation
+5. Ken Burns BG Slider Effect
+6. Divi centered menu mobile upgrade
+7. Pusedo element ribbon
+8. Customize WooCommerce Buttons
+9. Pusedo element before image 
+10. Adjust Divi module break point 
+11. Zoom column image on hover 
+12. Expand column on hover, shrink others
+
+**/ 
+
+/** 1. Menu Bar Text/Icon **/ 
+.mobile_menu_bar:before, .mobile_menu_bar:after {
+	color: #038576;
+}
+ 
+.et_mobile_menu {
+    border-top: 3px solid #038576 !important;
+}
+ 
+
+/** 2. Mobile Columns ( built into new theme, can be used on legacy themes or custom legacy themes ) **/
+ 
+@media only screen and (max-width: 980px) {
+ 
+	.two-columns .et_pb_column {
+		width: 50%!important;
+	}
+	
+	.three-columns .et_pb_column {
+		width: 33.33%!important;
+	}
+	
+	.four-columns .et_pb_column {
+		width: 25%!important;
+	}
+}
+	
+/** 3. adjust Divi Menu module breakpoint **/
+
+@media only screen and (max-width: 1160px) {
+	#top-menu-nav {
+	display: none;
+	}
+	#et_mobile_nav_menu {
+	display: block
+	}
+}
+ 
+/* 4. Zoom Animation */
+ 
+#zoom-slider img {
+	animation-delay: 5s;
+	animation: zoom 3s forwards;
+	overflow: hidden;
+}
+ 
+@keyframes zoom {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
+ 
+/** 5. Ken Burns BG Slider Effect - works best as a background slider **/
+/** Will enlarge content in the slide h1, h2, body copy, cta etc **/
+/** Position a new section using absolute and a high z-index to place it **/
+/** ontop of the slider, allows for a ken burns slider background with static content on top **/  
+
+.kb-zoom .et_pb_slide {
+   animation: zoomin 7s forwards;
+  -ms-animation: zoomin 7s forwards;
+  -webkit-animation: zoomin 7s forwards;
+  -moz-animation: zoomin 7s forwards;
+}
+ 
+@keyframes zoomin{
+	0%{
+		-ms-transform: scale3d(1.1, 1.1, 1.1) translate3d(0px, 0px, 0px);
+		-webkit-transform: scale3d(1.1, 1.1, 1.1) translate3d(0px, 0px, 0px);
+		-o-transform: scale3d(1.1, 1.1, 1.1) translate3d(0px, 0px, 0px);
+		-moz-transform: scale3d(1.1, 1.1, 1.1) translate3d(0px, 0px, 0px);
+		transform: scale3d(1.1, 1.1, 1.1) translate3d(0px, 0px, 0px);
+		animation-timing-function: linear;
+	
+	
+	} 
+	100%{
+		-ms-transform: scale3d(1.5, 1.5, 1.5) translate3d(-0px, 0px, 0px);
+		-webkit-transform: scale3d(3.5, 3.5, 3.5) translate3d(0px, 0px, 0px);
+		-o-transform: scale3d(1.5, 1.5, 1.5) translate3d(0px, 0px, 0px);
+		-moz-transform: scale3d(1.5, 1.5, 1.5) translate3d(0px, 0px, 0px);
+		transform: scale3d(1.5, 1.5, 1.5) translate3d(0px, 0px, 0px);
+	
+	}
+}
+ 
+/** 6. Divi centered menu mobile upgrade **/
+/** Mobile upgrade for Divi "Centered Inline Logo" menu option  **/ 
+ 
+.et_header_style_left #et-top-navigation, .et_header_style_split #et-top-navigation {
+	padding-top: 0;
+}
+ 
+@media only screen and (min-width: 981px)
+{
+	.logo_container img {
+		max-height: 200% !important;
+	}
+}
+@media only screen and (max-width: 980px) {
+	.select_page {
+		display: none !important;
+	}
+	.logo_container {
+		position: absolute !important;
+   		 top: -25px  !important;
+		left: -50px  !important;
+	}
+	.logo_container img {
+		max-height: 200px  !important;
+	}
+	#et-main-area {
+		margin-top: -7px;
+	}
+}
+ 
+ 
+/* 7. Pusedo element ribbon */ 
+ 
+.ribbon-content:before {
+	content: "";
+	position: absolute;
+	display: block;
+	border-style: solid;
+	border-color: #804f7c transparent transparent transparent;
+	bottom: -1em;
+}
+.ribbon-content:before {
+	left: 0;
+	border-width: 1em 0 0 1em;
+}
+ 
+
+/** 8. Customize WooCommerce Elements **/
+
+/* Buttons Standard State */
+
+.woocommerce #content input.button, .woocommerce #content input.button.alt, .woocommerce #respond input#submit, .woocommerce #respond input#submit.alt, 
+.woocommerce-page #content input.button, .woocommerce-page #content input.button.alt, .woocommerce-page #respond input#submit, 
+.woocommerce-page #respond input#submit.alt, .woocommerce-page a.button, .woocommerce-page a.button.alt, .woocommerce-page button.button, 
+.woocommerce-page button.button.alt, .woocommerce-page button.button.alt.disabled, .woocommerce-page input.button, .woocommerce-page input.button.alt, 
+.woocommerce a.button, .woocommerce a.button.alt, .woocommerce button.button, .woocommerce button.button.alt, .woocommerce button.button.alt.disabled, 
+.woocommerce input.button, .woocommerce input.button.alt {
+	color: black;
+	background: white;
+}
+
+/* Buttons Hover State */
+
+.comment-reply-link:hover, .et_password_protected_form .et_submit_button:hover, .form-submit .et_pb_button:hover, 
+.woocommerce #content input.button.alt:hover, .woocommerce #content input.button:hover, .woocommerce #respond input#submit.alt:hover, 
+.woocommerce #respond input#submit:hover, .woocommerce-page #content input.button.alt:hover, .woocommerce-page #content input.button:hover, 
+.woocommerce-page #respond input#submit.alt:hover, .woocommerce-page #respond input#submit:hover, .woocommerce-page a.button.alt:hover, 
+.woocommerce-page a.button:hover, .woocommerce-page button.button.alt.disabled:hover, .woocommerce-page button.button.alt:hover, 
+.woocommerce-page button.button:hover, .woocommerce-page input.button.alt:hover, .woocommerce-page input.button:hover, .woocommerce a.button.alt:hover, 
+.woocommerce a.button:hover, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:hover, .woocommerce button.button:hover, 
+.woocommerce input.button.alt:hover, .woocommerce input.button:hover {
+	color: white;
+	background: black;
+}
+
+/* Woo Message Area & Button */ 
+
+.woocommerce .woocommerce-error, .woocommerce .woocommerce-info, .woocommerce .woocommerce-message {
+	background: #D2D2CF;
+	color: white;
+}
+
+.woocommerce-message a.button.wc-forward, .woocommerce-message a.button.wc-forward:hover {
+	background: black;
+	color: white;
+}
+
+/** 9. Pusedo element before image  **/
+
+.custom-icon::before {
+	content: url('enter-relative-image-url-here.jpg');
+	position: absolute;
+	left: -30px;
+	top: 3px;
+}
+
+/** Psuedo Element with image - parent element must be relative - adjust top/right/left/bottom values accordingly **/
+
+.element::before {
+	content: url('relative-path-to-image-in-image-library');
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+/** 10. Adjust Divi module break point **/
+/** Change max width number to change where the break point kicks in **/
+
+@media only screen and (max-width: 1275px) {
+    .et_pb_menu .et_pb_menu__menu {
+        display: none;
+    }
+    .et_mobile_nav_menu {
+        display: block
+    }
+}
+
+/** 11. Zoom column image on hover **/
+/** Add image to column, add hover-col class to column, add expand class to image module **/
+/** Position absolute content ontop of image in column, this will produce an effect where the image is zoomed in on hover
+and the content ontop is clickable **/
+
+  .hover-col {
+    overflow: hidden;
+  }
+  
+  .hover-col .expand {
+    transform: scale(1);
+    transition: all .5s;
+  }
+
+  .hover-col:hover .expand {
+    transform: scale(1.2);
+  }
+
+/** 12. Expand column on hover, shrink others **/ 
+/** add expand-container class to row **/
+/** add expand-column class to columns in expand-container **/
+/** adjust widths accordingly **/
+  .expand-container {
+    	display: flex;
+  }
+  .expand-container .expand-column {
+      width: 33.3333% !important;
+    	-webkit-transition: all 1s;
+    	transition: all 1s;
+  }
+  .expand-container > .expand-column:hover {
+    width: 80% !important;
+  }

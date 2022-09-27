@@ -1,0 +1,464 @@
+<!-- 
+    Snippets for customizing navigation & other features for websites
+
+    For more detailed instructions on use refer to documentation 
+
+    1. jQuery WP wrapper
+    2. Change navigation bg color on scroll CSS & JS
+    3. Slide navigation into view on scroll CSS & JS
+    4. Create and Check for cookie for age-overlay JS 
+    5. Change logo width in custom navigation on scroll 
+    6. Before & After Borders CSS
+    7. Blur sections when hovering on another section ( blur one column while hovering on adjacent column )
+    8. Gravity Forms date picker restriction 
+    9. Hide/Show nav on scroll down/up
+    10. Custom hamburger menu icon and animations
+    11. Slide out navigation
+    12. Change blog module read more text 
+    13. Scroll Reveal Footer
+    14. Add click events to all items with a certain class name 
+    15. Intersectional Obsever ( add/remove classes when elements move in and out of the viewport )
+
+-->
+
+<!--- 1. jQuery wrapper for wordpress --->
+
+<script>
+(function($) {
+	
+	// when writing jQuery in WP you need to wrap everything in this function in order to use the $ selector
+	
+})( jQuery );
+</script>
+
+<!-- 2. Change navigation background color after scroll -->
+<style>
+    #nav-menu-scroll {
+      background-color: transparent;
+      transition: all .5s;
+      height: 100px;
+    }
+  </style>
+  <script>
+  (function($) {
+      $( document ).ready(function() {
+      let menu = $('#nav-menu-scroll');
+          document.addEventListener('scroll', () => {
+              if(window.scrollY > 200) {
+                  menu.css("background-color", "black");
+              } else {
+                  menu.css("background-color", "transparent");
+              }
+          });
+      });	
+  })( jQuery );
+  </script>
+
+<!-- 3. Slide Down navigation on scroll -->  
+<style>
+        #nav-menu-scroll {
+        position: fixed;
+        top: -200px; 
+        width: 100%;
+        transition: all .5s;
+    }
+
+    .fixed {
+        top: 0px !important; 
+    }
+</style>
+<script>
+    (function($) {
+        $( document ).ready(function() {
+            let menu = $('#nav-menu-scroll');
+            document.addEventListener('scroll', () => {
+                if(window.scrollY > 200) {
+                    menu.addClass('fixed');
+                } else {
+                    menu.removeClass('fixed');
+                }
+            });
+        });	
+    })( jQuery );
+    </script>
+
+<!-- 4. Create and check for cookie for age overlay -->
+
+<script>
+    (function($) {
+      // SET AGE COOKIES 
+      var allCookies = document.cookie;
+      function checkAge() {
+        if(allCookies.search('age-wall=yes') == 0) {
+             $('#age-wall-overlay').hide();
+              console.log('you shall pass');
+          } else {
+            console.log('you shall not pass');
+            $('#age-wall-overlay').css('display','flex');
+          $('#age-yes').click(function(e){
+            e.preventDefault();
+            document.cookie='age-wall=yes;path=/;';
+            $('#age-wall-overlay').hide();
+          });
+          $('#age-no').click(function(e){	
+              e.preventDefault();
+              alert('Sorry, you must be at least 21 to enter.')
+          });
+        }
+      }
+    window.addEventListener('load', checkAge);
+    })( jQuery );
+    </script> 
+
+<!-- 5. Change Navigation Logo Size on scroll ( Custom Menu )  -->
+
+<script>
+$(window).scroll(()=>{
+    if (window.scrollY > 80) {
+		$('#nav-logo').css('width', '100px');
+    } else {
+		$('#nav-logo').css('width', '125px');
+    } 
+  });
+</script>
+
+<!-- 6. Before & After Borders CSS  -->
+<!-- omit the selector tags if using in a Divi module - use custom css options within module -->
+
+<style>
+::before {
+  content: '';
+  background: black;
+  position: absolute;
+  width: 45px;
+  height: 5px;
+  right: -10px;
+  top: 0;
+}
+
+::after {
+  content: '';
+  background: black;
+  position: absolute;
+  width: 5px;
+  height: 45px;
+  right: -10px;
+  top: 0;
+}
+</style>
+
+<!-- 7. blur sections on hover -->
+<style>
+  /** add ID's to each column and replace fishing & delivery ID's below **/
+  #fishing, #delivery {
+    transition: all .5s;
+  }
+  .blurred {
+    filter: blur(4px);
+  }
+</style>
+<script>
+  (function($) {
+    
+    // add ID's to each column and replace fishing & delivery ID's below
+    let target1 = $('#fishing');
+    let target2 = $('#delivery');
+
+    console.log(target1);
+
+    target1.hover(
+      () => {
+        target2.addClass('blurred');
+      },
+      ()=>{
+      	target2.removeClass('blurred');
+    });
+    
+    target2.hover(
+      () => {
+        target1.addClass('blurred');
+      },
+      ()=>{
+      	target1.removeClass('blurred');
+    });
+  })( jQuery );
+</script>
+  
+<!--     8. Gravity Forms date picker restriction   -->
+<!-- Add HTML block to gravity forms and add following script there -->
+<!-- Identify the ID of the field with the date and replace in snippet -->
+
+
+<script type="text/javascript">
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+    let date = new Date();
+    console.log(date.addDays(3));
+    let orderDate = date.addDays(3);
+    gform.addFilter( 'gform_datepicker_options_pre_init', function( optionsObj, formId, fieldId ) {
+    if ( formId == 1 && fieldId == 7 ) {
+    optionsObj.minDate = orderDate;
+    }
+    return optionsObj;
+    } );
+  </script>
+
+
+<!-- 9. Hide/Show nav on scroll down/up  -->  
+<!-- Section with nav-mneu-hide-on-scroll id should be position:fixed -->
+
+<style>
+  #nav-menu-hide-on-scroll {
+    transition: all .5s;
+  }
+</style>
+<script>
+(function($) {
+    $( document ).ready(function() {
+    let menu = $('#nav-menu-hide-on-scroll');
+        window.onscroll = function(e) {
+          menu.css('top', '0%');
+          if(this.oldScroll > this.scrollY == true) {
+            menu.css('top', '0%');
+          } else {
+            menu.css('top', '-100%');
+          }
+          this.oldScroll = this.scrollY;
+        }
+    });	
+})( jQuery );
+</script>
+
+<!-- 10. Custom hamburger menu icon and animations -->
+
+<!-- HTML markup to start hamburger icon -->
+<input type="checkbox" class="toggler" id="nav-toggler">
+<div class="hamburger">
+	<div></div>
+</div>
+
+<style>
+  /* CREATING THE MIDDLE LINE OF THE HAMBURGER : */
+  
+  .hamburger > div{
+      position: relative;
+      top: 0;
+      left: 0;
+      background: white;
+      height: 2px;
+      width: 60%;
+      transition: all  0.4s ease;
+  }
+  
+  .toggler{
+    /* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
+      z-index:2;
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: -25px;
+      left: 0;
+      cursor: pointer;
+      opacity: 0;
+  }
+    
+  @media only screen and (max-width: 600px) {
+      .toggler {
+        z-index: 2;
+        height: 37px;
+        width: 32px;
+        position: absolute;
+         top: -22px;
+         left: -4px;
+        cursor: pointer;
+        opacity: 0;
+      }
+  }
+  
+  .hamburger{  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  /* CREATING THE MIDDLE LINE OF THE HAMBURGER : */
+  
+  .hamburger > div{
+      position: relative;
+      top: 0;
+      left: 0;
+      background: white;
+      height: 4px;
+      width: 60%;
+      transition: all  0.4s ease;
+  }
+  
+  /* CREATING THE TOP AND BOTTOM LINES : 
+  TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
+  
+  .hamburger > div::before,
+  .hamburger > div::after{
+      content: '';
+      position: absolute;
+      top: -10px;
+      background: white;
+      width: 100%;
+      height: 4px;
+      transition: all  0.4s ease;
+  }
+  
+  .hamburger > div::after{
+      top: 10px;
+  }
+  
+  /* IF THE TOGGLER IS IN ITS CHECKED STATE, THEN SETTING THE BACKGROUND OF THE MIDDLE LAYER TO COMPLETE BLACK AND OPAQUE :  */
+  
+  .toggler:checked + .hamburger > div{
+      background: rgba(0,0,0,0);
+  }
+  
+  .toggler:checked + .hamburger > div::before{
+      top: 0;
+      transform: rotate(45deg);
+      background: black;
+  }
+  
+  /* AND ROTATING THE TOP AND BOTTOM LINES :  */
+  
+  .toggler:checked + .hamburger > div::after{
+      top: 0;
+      transform: rotate(135deg);
+      background: black;
+  }
+    
+</style>
+
+<!-- 11. Slide out navigation -->
+
+<style>
+
+#slide-out {
+  position: fixed;
+  right: -110%;
+  transition: all .5s;
+  z-index: 99;
+}
+  
+#slide-out.active {
+  right: 0%;    
+}
+  
+</style>
+
+<script>
+(function($) {
+$( document ).ready(function() {
+    let toggle = $('#nav-toggler');
+    toggle.click(()=>{
+      $('#slide-out').toggleClass('active');
+    });
+  });	
+})( jQuery );
+</script>
+
+<!-- 12. Change blog module read more text -->
+<!-- Add to the footer or header php template -->
+
+<script>
+  (function($) {
+    if('.more-link') {
+          $(".more-link").html("Some New Stuff");
+      }
+    
+  })( jQuery );
+  </script>
+
+  <!-- 13. Scroll Reveal Footer -->
+
+  <!-- Add code to footer, make section & row with code module 0 padding, 0 margin, 0 height -->
+  <!-- Add footer elements in single section and add id="footer-el" to this section -->
+  <!-- All pages of site should have a common element at the bottom of the page for the "reveal" to happen behind -->
+  <!-- Footer may be too tall for mobile devices, if so hide some elements on mobile -->
+  <!-- See Park City Website for example -->
+
+  <style>
+    #main-content {
+      position: relative;
+      z-index: 10;
+    }
+    
+    footer {
+      position: fixed;
+      z-index: 2;
+      bottom: 0;
+      width: 100vw;
+      display: inline-block;
+    }
+    </style>
+    <script>
+    (function($) {
+      let footer = $('footer');
+      let footerInner = $('#footer-el');
+      let mainContent = $('#main-content');
+      
+      // add styles for fixed footer
+      $( document ).ready(function() {
+          let mh = footerInner.outerHeight();
+          footer.css('height', mh);
+          mainContent.css('margin-bottom', mh);
+      });
+      
+      // update styles for fixed footer on screen resize
+      $( window ).resize(function() {
+          let mh = footerInner.outerHeight();
+          footer.css('height', mh);
+          mainContent.css('margin-bottom', mh);
+      });
+      
+    })( jQuery );
+    </script>
+    
+
+<!-- 14. Add click events to all items with a certain class name   -->
+
+<script>
+    var close = document.querySelectorAll('.customClose');
+  close.forEach((item) => {
+    item.addEventListener('click', () => {
+      document.getElementById('slide-out').classList.remove('active');
+      document.getElementById("nav-toggler").checked = false
+    });
+  });
+</script>
+
+<!--- 15. Intersectional Obsever ( add/remove classes when elements move in and out of the viewport )
+
+  add target class to elements that need to be monitored for when they are in/out of the viewport
+  can add and remove classes based on whether they are in view or not 
+  play with threshold parameters to change sensitivity on when something is consider in/out of view
+
+-->
+<script>
+  (function($) {
+      const targets = document.querySelectorAll('.target');
+          console.log(targets)
+          function handleIntersection(entries) {
+              entries.map((entry) => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('in-view');
+                  } else {
+                      //entry.target.classList.remove('in-view');
+                  }
+              });
+          }
+          const observer = new IntersectionObserver(handleIntersection, {threshold: 1});
+
+          targets.forEach(target => {
+              observer.observe(target)
+          });
+  
+  })( jQuery );
+  </script>
