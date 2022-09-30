@@ -18,7 +18,7 @@
     13. Scroll Reveal Footer
     14. Add click events to all items with a certain class name 
     15. Intersectional Obsever ( add/remove classes when elements move in and out of the viewport )
-
+    16. Custom Slider with divi rows 
 -->
 
 <!--- 1. jQuery wrapper for wordpress --->
@@ -462,3 +462,162 @@ $( document ).ready(function() {
   
   })( jQuery );
   </script>
+
+<!--- 16. Custom Slider with divi rows  
+  
+  Create a section add .slider class to section, this is the slider container 
+  Create rows inside section add .slide class to each row, these will be each slide of the slider
+  Create another section and add slider control html, these are how the slider is moved 
+
+--->
+
+<div class="slider-controls">
+
+  Click to Learn More
+  <div class="sc-inner"><span id="previous">←</span>
+  <span id="next">→</span></div>
+  </div>
+
+<style>
+  .slider {
+    position: relative;
+    min-height: 75vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .slide {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s;
+    min-height: 75vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+  }
+  .active {
+    opacity: 1;
+  }
+  .slider img {
+    width: 100%;
+  }
+  .banner-form {
+    border-radius: 0px 0px 15px 15px;
+  }
+  .slider-controls .sc-inner {
+    display: flex;
+    width: 100px;
+    justify-content: space-around;
+    height: 50px;
+    margin-left: 15px;
+	}
+  .sc-inner #next, .sc-inner #previous {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    padding: 3px 5px 10px 5px;
+    transition: all .5s;
+    color: white;
+  }
+  .sc-inner #next:hover, .sc-inner #previous:hover {
+    background: #389e6c;
+    cursor: pointer;
+  }
+  .slider-controls-mobile {
+    z-index: 999;
+    color: white;
+    display: flex;
+    height: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .slider-controls-mobile #next-mobile, .slider-controls-mobile #previous-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    padding: 3px 5px 10px 5px;
+    transition: all .5s;
+    color: white;
+  }
+  .slider-controls-mobile #next-mobile:hover, .slider-controls-mobile #previous-mobile:hover {
+    background: #389e6c;
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 980px) {
+    .slider {
+      min-height: 700px;
+    }
+    .slide {
+      display: block;
+      padding-top: 50px !important;
+      padding-bottom: 50px !important;
+    }
+    .slide-col-1 {
+      margin-right: 25px;
+    }
+	}
+</style>
+<script>
+(function($) {
+	
+	const slides = $('.slide');
+  let iter = 0;
+  const previous = $('#previous');
+  const next = $('#next');
+  const previousMobile = $('#previous-mobile');
+  const nextMobile = $('#next-mobile');
+  
+  slides[0].classList.add('active');
+  
+  const nextSlide = () => {
+  		for (const slide of slides) {
+      let classes = slide.classList.value;
+      if(classes.search("active") != -1) {
+        slide.classList.remove("active");
+      }
+  	}
+    iter++;
+    if(iter == slides.length) {
+      iter = 0;
+    }
+    slides[iter].classList.add('active');
+  }
+  
+  const prevSlide = () => {
+		for (const slide of slides) {
+      let classes = slide.classList.value;
+      if(classes.search("active") != -1) {
+        slide.classList.remove("active");
+      }
+  	}
+    if(iter == 0) {
+      iter = (slides.length - 1);
+      slides[iter].classList.add('active');
+    } else {
+      iter--;
+      slides[iter].classList.add('active');
+    }
+  }
+  
+  next.click(() => {
+		nextSlide();
+  });
+  
+  previous.click(() => {
+		prevSlide();
+  });
+  
+  nextMobile.click(() => {
+    nextSlide();
+  });
+  
+  previousMobile.click(() => {
+    prevSlide();
+  });
+  
+})( jQuery );
+</script>
